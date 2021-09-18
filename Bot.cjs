@@ -3,7 +3,7 @@ const bot = new Client();
 const { readdir } = require("fs");
 let { prefix } = require('./config.json');
 
-const token = "ODM4MzQyODU3MDAxNTMzNDcx.YI5toA.TeERqG2BqOb8WYDCeILbSFXorWo"
+const token = ""
 
 var fileName;
 var commandsLoaded = 0;
