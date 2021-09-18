@@ -1,19 +1,18 @@
-const randomPuppy = require('random-puppy');
-const fetch = require('node-fetch');
+const { MessageEmbed } = require("discord.js");
+const { fetchFromReddit } = require("../fetchFromReddit.js")
 const { prefix, redditDeleteMessagesOnCommand, redditMessageDeleteDelay, maxRedditsToSend } = require("../config.json")
 
 var redditMessageDeleteDelayNum = parseInt(redditMessageDeleteDelay, 10)
-var maxRedditsToSendNum = parseInt(maxRedditsToSend, 10)
 
 module.exports = 
 {
     config: {
         name: "reddit",
         aliases: ["r"],
-        description: `Posts a random post from chosen subreddit
-        Usage: ***${prefix}reddit [subreddit] ([amount of pictures to send])***
+        description: `Posts images from chosen subreddit
+        Usage: ***${prefix}reddit [subreddit]***
         Aliases: ***r***
-        Example: ***${prefix}r softwaregore 10***`
+        Example: ***${prefix}r softwaregore***`
     },
 
     run: async(bot, message, args) =>
@@ -25,47 +24,20 @@ module.exports =
 
         let subreddit = args[1]
 
-        if(!args[1]) return message.reply("You need to define a subreddit")
+        if(!subreddit) return message.reply("You need to define a subreddit")    
 
-        else if(maxRedditsToSendNum < 1) { maxRedditsToSendNum = 1; }
-
-        else if(args[2])
-        {
-            if(args[2] < 1) { args[2] = 1; }
-            else if(args[2] > maxRedditsToSendNum) { return message.reply(`You can only request ${maxRedditsToSendNum} messages`); }
-            else
-            {
-                for (var i = 1; i <= args[2]; i++) {
-                    randomPuppy(subreddit).then(url => {
-                        fetch(url).then(async res => {
-                            await message.channel.send({
-                                files: [{
-                                    attachment: res.body,
-                                    name: 'meme.png'
-                                }]
-                            }).catch(err => console.log("Error - ", err.message))
-                        }).catch(err => console.log("Error - ", err.message));
-                    })
+        else {
+            await fetchFromReddit(subreddit).then(urls => {
+                for(const [link, title] of Object.entries(urls)) {
+                    if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
+                        redditEmbed = new MessageEmbed()
+                            .setColor([0, 255, 0])
+                            .setAuthor(title)
+                            .setImage(link)
+                        message.channel.send(redditEmbed)
+                    }                    
                 }
-            }
-        } 
-        
-        else
-        {
-            randomPuppy(subreddit).then(url => {
-                fetch(url).then(async res => {
-                    if(typeof res.body == undefined) return i--;
-                    if(res.body)
-                    {
-                        await message.channel.send({
-                            files: [{
-                                attachment: res.body,
-                                name: 'reddit.png'
-                            }]
-                        }).catch(err => console.log("Error - ", err.message));
-                    }
-                }).catch(err => console.log("Error - ", err.message));
-            });
+            })
         }
         await message.channel.stopTyping(true);
     }

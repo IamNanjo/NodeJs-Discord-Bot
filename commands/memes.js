@@ -1,5 +1,5 @@
-const randomPuppy = require('random-puppy');
-const fetch = require('node-fetch');
+const { fetchFromReddit } = require("../fetchFromReddit")
+const { MessageEmbed } = require("discord.js")
 const { prefix, memeReddits, amountOfMemesToPost, maxMemesToPost, memesDeleteMessagesOnCommand, memesMessageDeleteDelay } = require("../config.json");
 
 var amountOfMemesToPostNum = parseInt(amountOfMemesToPost, 10)
@@ -9,12 +9,12 @@ var memesMessageDeleteDelayNum = parseInt(memesMessageDeleteDelay, 10)
 module.exports = { 
     config: {
         name: "memes",
-        aliases: [],
-        description: `Posts ${amountOfMemesToPostNum} (without arguments) or up to ${maxMemesToPostNum} random memes from reddit
+        aliases: ["meme"],
+        description: `Posts memes from reddit
         Subreddits: ***${memeReddits.join(", ")}***
-        Usage: ***${prefix}memes [1 - ${maxMemesToPostNum}]***
-        Aliases: ***None***
-        Example: ***${prefix}memes ${Math.floor(maxMemesToPostNum / 2)}***`
+        Usage: ***${prefix}memes***
+        Aliases: ***Meme***
+        Example: ***${prefix}memes***`
     },
     
     run: async(bot, message, args) =>
@@ -23,47 +23,20 @@ module.exports = {
         { 
             message.delete({timeout : memesMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err.message));
         }
-
-        if(maxMemesToPostNum < 1) { maxMemesToPostNum = 1; }
-
-        if(!args[1])
-        {
-            if(amountOfMemesToPostNum < 1) { amountOfMemesToPostNum = 1; }
-            for (var i = 1; i <= amountOfMemesToPostNum; i++) {
-                let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)];
-                randomPuppy(subreddit).then(url => {
-                    fetch(url).then(async res => {
-                        if(typeof res.body == undefined) return i--;
-                        if(res.body)
-                        {
-                            await message.channel.send({
-                                files: [{
-                                    attachment: res.body,
-                                    name: 'meme.png'
-                                }]
-                            }).catch(err => console.log("Error - ", err.message));
-                        }
-                    }).catch(err => console.log("Error - ", err.message));
-                })
+        let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)];
+        
+        await fetchFromReddit(subreddit).then(urls => {
+            for(const [link, title] of Object.entries(urls)) {
+                if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
+                    redditEmbed = new MessageEmbed()
+                        .setColor([0, 255, 0])
+                        .setAuthor(title)
+                        .setImage(link)
+                    message.channel.send(redditEmbed)
+                }                    
             }
-        }
-            
-        else if(args[1] <= maxMemesToPostNum && args[1] > 0) {
-            for (var i = 1; i <= args[1]; i++) {
-                let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)];
-                randomPuppy(subreddit).then(url => {
-                    fetch(url).then(async res => {
-                        await message.channel.send({
-                            files: [{
-                                attachment: res.body,
-                                name: 'meme.png'
-                            }]
-                        }).catch(err => console.log("Error - ", err.message))
-                    }).catch(err => console.log("Error - ", err.message));
-                })
-            }
-        }
-        else { message.reply(`Maximum memes to post at once is ${maxMemesToPostNum}`); }
+        })
+
         await message.channel.stopTyping(true);
     }
 }

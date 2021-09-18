@@ -33,6 +33,5 @@
     "udDeleteMessagesOnCommand": "true",
     "udMessageDeleteDelay": "true",
     "userinfoDeleteMessagesOnCommand": "true",
-    "userinfoMessageDeleteDelay": "1",
-    "maxRedditsToSend": "25"
+    "userinfoMessageDeleteDelay": "1"
 }

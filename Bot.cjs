@@ -3,6 +3,8 @@ const bot = new Client();
 const { readdir } = require("fs");
 let { prefix } = require('./config.json');
 
+const token = "ODM4MzQyODU3MDAxNTMzNDcx.YI5toA.TeERqG2BqOb8WYDCeILbSFXorWo"
+
 var fileName;
 var commandsLoaded = 0;
 
@@ -18,7 +20,7 @@ bot.on("ready", () => {
         .catch(e => console.log("Error - ", e.message))
 });
 
-
+// Read commands folder contents to know how many commands there are and load them
 readdir("./commands/", (err, files) => {
     if(err) console.log(err)
 
@@ -44,7 +46,7 @@ readdir("./commands/", (err, files) => {
     else { console.log(`\n\n${commandsLoaded} commands loaded \n${jsfile.length - commandsLoaded} commands failed to be loaded\n\n`) }
 })
 
-
+// Bot is ready
 bot.on("message", async message => {
     if(message.author.type === "bot") return;
     
@@ -64,4 +66,4 @@ bot.on("message", async message => {
     }
 });
 
-bot.login(process.env.DJS_TOKEN);
+bot.login(process.env.DJS_TOKEN || token);
