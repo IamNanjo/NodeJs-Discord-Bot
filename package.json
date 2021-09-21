@@ -4,7 +4,7 @@
   "description": "A simple Discord bot",
   "main": "Bot.js",
   "scripts": {
-    "start": "node Bot.cjs"
+    "start": "node Bot.js"
   },
   "author": "Arttu Kaipainen",
   "license": "ISC",
