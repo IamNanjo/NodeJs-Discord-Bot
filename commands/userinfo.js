@@ -25,18 +25,17 @@ module.exports =
                 message.delete({timeout : userinfoMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
             }
         
-        let user = message.mentions.users.first();
         let member = message.mentions.members.first();
-
 
         let userInfoEmbed = new Discord.MessageEmbed()
             .setColor("#00ff00")
-            .setThumbnail(user.avatarURL)
+            .setThumbnail(member.user.avatarURL())
             .setAuthor(`User Info Requested by : ${message.author.tag}`)
-            .setTitle(`Information about ${user.tag}`)
+            .setTitle(`Information about ${member.user.tag}`)
             .addField("User's ID", member.id)
-            .addField("User was created on : ", `${moment.utc(user.createdAt).format("dddd, MMMM Do YYYY, HH:mm:ss")} UTC / GMT`)
+            .addField("User was created on : ", `${moment.utc(member.user.createdAt).format("dddd, MMMM Do YYYY, HH:mm:ss")} UTC / GMT`)
             .addField("User joined this server on : ", `${moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY, HH:mm:ss")} UTC / GMT`)
+            .setTimestamp()
 
         message.channel.send(userInfoEmbed);
 

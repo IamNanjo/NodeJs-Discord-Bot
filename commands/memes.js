@@ -23,14 +23,14 @@ module.exports = {
         { 
             message.delete({timeout : memesMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err.message));
         }
-        let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)];
+        let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)].toLowerCase();
         
         await fetchFromReddit(subreddit).then(urls => {
             for(const [link, title] of Object.entries(urls)) {
                 if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
                     redditEmbed = new MessageEmbed()
                         .setColor([0, 255, 0])
-                        .setAuthor(title)
+                        .addField("Title", title)
                         .setImage(link)
                     message.channel.send(redditEmbed)
                 }                    

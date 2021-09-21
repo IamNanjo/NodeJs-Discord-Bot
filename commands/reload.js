@@ -1,5 +1,5 @@
-const { readdir } = require("fs");
-const { prefix, reloadDeleteMessagesOnCommand, reloadMessageDeleteDelay, accessToReloadCommand } = require("../config.json");
+const { readdir, writeFileSync } = require("fs");
+let botConf = require("../config.json")
 
 var commandsReloaded = 0;
 
@@ -9,39 +9,86 @@ module.exports =
         name: "reload",
         aliases: [],
         description: `Reloads a chosen command or all commands (without arguments)
-        Usage: ***${prefix}reload [command]***
+        Usage: ***${botConf.prefix}reload [command]***
         Aliases: ***None***
-        Example: ***${prefix}reload all***`
+        Example: ***${botConf.prefix}reload reddit***`
     },
 
-    run: async(bot, message, args) =>
+    run: (bot, message, args) =>
     {
-        if(!message.member.hasPermission("ADMINISTRATOR") && !accessToReloadCommand.includes(message.member.id) && accessToReloadCommand.length > 0)
+        if(!message.member.hasPermission("ADMINISTRATOR") && !botConf.accessToReloadCommand.includes(message.member.id))
             return message.reply("You don't have the required permissions to use this command")
 
-        if(reloadDeleteMessagesOnCommand == "true") 
-            { 
-                message.delete({timeout : reloadMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
-            }
+        if(botConf.reloadDeleteMessagesOnCommand == "true") { 
+            message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
+        }
+        
+        botConf = require("../config.json")
 
         if(args[1])
         {
             let commandName = args[1].toLowerCase();
-            try
-            {
-                delete require.cache[require.resolve(`./${commandName}.js`)];
-                bot.commands.delete(commandName);
-                let pull = require(`./${commandName}.js`);
-                bot.commands.set(commandName, pull)
-                message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
-            } catch(err) {
-                message.channel.send(`Error - ${err.message}`);
-                console.log(err);
+
+            if(commandName == "reddit") {
+                for(const key in botConf["after"]) {
+                    if(!botConf["memeReddits"].includes(key)) {
+                        botConf["after"][key] = ""
+                    }
+                }
+                writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+
+                try
+                {
+                    delete require.cache[require.resolve(`./${commandName}.js`)];
+                    bot.commands.delete(commandName);
+                    let pull = require(`./${commandName}.js`);
+                    bot.commands.set(commandName, pull)
+                    message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
+                } catch(err) {
+                    console.log(`Error - ${err.message}`);
+                }
+            }
+            else if(commandName == "memes") {
+                console.log("Should work")
+                for(const key in botConf["after"]) {
+                    if(botConf["memeReddits"].includes(key)) {
+                        botConf["after"][key] = ""
+                    }
+                }
+                writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+
+                try
+                {
+                    delete require.cache[require.resolve(`./${commandName}.js`)];
+                    bot.commands.delete(commandName);
+                    let pull = require(`./${commandName}.js`);
+                    bot.commands.set(commandName, pull)
+                    message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
+                } catch(err) {
+                    console.log(`Error - ${err.message}`);
+                }
+            }
+            else {
+                try
+                {
+                    delete require.cache[require.resolve(`./${commandName}.js`)];
+                    bot.commands.delete(commandName);
+                    let pull = require(`./${commandName}.js`);
+                    bot.commands.set(commandName, pull)
+                    message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
+                } catch(err) {
+                    console.log(`Error - ${err.message}`);
+                }
             }
         }
-        else
-        {
+        else {
             message.channel.send(`Reloading commands...`)
+
+            for(const key in botConf["after"]) {
+                botConf["after"][key] = ""
+            }
+            writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+
             readdir(`./commands/`, (err, files) => {
                 if(err) console.log(err);
 

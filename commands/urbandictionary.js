@@ -56,7 +56,6 @@ module.exports = {
             })
         } catch(err) {
             console.log(`Error - ${err.message}`);
-            message.channel.send(`Error - ${err.message}`);
         }
         
         message.channel.stopTyping(true);

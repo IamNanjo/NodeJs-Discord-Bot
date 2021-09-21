@@ -8,7 +8,6 @@ const token = ""
 var fileName;
 var commandsLoaded = 0;
 
-
 bot.commands = new Collection();
 bot.aliases = new Collection();
 

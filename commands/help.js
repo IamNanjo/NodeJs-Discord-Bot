@@ -64,8 +64,10 @@ module.exports =
         }
 
         if (!helpDurationNum <= 0) {
-            message.channel.send(helpEmbed)
+            try {
+                message.channel.send(helpEmbed)
                 .then(msg => { msg.delete({ timeout: helpDurationNum * 1000 }) }).catch(err => console.log("Error - ", err.message))
+            } catch {}
         } else message.channel.send(helpEmbed).catch(err => console.log("Error - ", err.message))
 
         await message.channel.stopTyping(true);

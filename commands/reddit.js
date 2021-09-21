@@ -22,7 +22,7 @@ module.exports =
             message.delete({timeout : redditMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err.message));
         }
 
-        let subreddit = args[1]
+        let subreddit = args[1].toLowerCase()
 
         if(!subreddit) return message.reply("You need to define a subreddit")    
 
@@ -32,7 +32,7 @@ module.exports =
                     if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
                         redditEmbed = new MessageEmbed()
                             .setColor([0, 255, 0])
-                            .setAuthor(title)
+                            .addField("Title", title)
                             .setImage(link)
                         message.channel.send(redditEmbed)
                     }                    
