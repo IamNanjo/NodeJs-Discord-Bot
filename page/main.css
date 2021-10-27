@@ -19,6 +19,8 @@ body {
 body > div {
     height: 50vh;
     width: 100%;
+}
+body * {
     justify-items: center;
     align-items: center;
     text-align: center;
