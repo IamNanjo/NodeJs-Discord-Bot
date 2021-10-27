@@ -32,7 +32,7 @@ module.exports =
                     if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
                         redditEmbed = new MessageEmbed()
                             .setColor([0, 255, 0])
-                            .addField("Title", title)
+                            .setTitle(title)
                             .setImage(link)
                         message.channel.send(redditEmbed)
                     }                    
