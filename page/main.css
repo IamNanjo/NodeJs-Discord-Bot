@@ -28,5 +28,6 @@ body * {
 }
 
 #githublink {
+    display: block;
     margin: auto;
 }
