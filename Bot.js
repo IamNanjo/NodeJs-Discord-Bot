@@ -7,7 +7,7 @@ const app = express()
 
 // Serve ./page folder on port 80 (http)
 app.use(express.static("page"))
-app.listen(80)
+app.listen(8080)
 
 var fileName;
 var commandsLoaded = 0;
