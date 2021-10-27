@@ -29,14 +29,8 @@ module.exports =
         else {
             await fetchFromReddit(subreddit, args[2] || undefined).then(urls => {
                 for(const [link, title] of Object.entries(urls)) {
-                    let shortenedTitle = title
-                    if(shortenedTitle.split(" ").length > 20) { // If more than 20 words
-                        shortenedTitle = shortenedTitle.split(" ").splice(0, 20).join(" ") // Limit to 20 words
-                        shortenedTitle = shortenedTitle.split("")
-                        shortenedTitle.push("...") // Add ... to the end of the title if it has been shortened
-                        shortenedTitle = shortenedTitle.join("")
-                    } else if(shortenedTitle.split("").length > 100) { // If more than 100 characters
-                        shortenedTitle = shortenedTitle.split("").splice(0, 100)// Limit to 100 characters
+                    if(title.split("").length > 500) { // If more than 500 characters
+                        let shortenedTitle = title.split("").splice(0, 500)// Limit to 500 characters
                         shortenedTitle.push("...") // Add ... to the end of the title if it has been shortened
                         shortenedTitle = shortenedTitle.join("")
                     }
