@@ -22,7 +22,7 @@ module.exports =
 
         if(userinfoDeleteMessagesOnCommand == "true")
             { 
-                message.delete({timeout : userinfoMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
+                message.delete({timeout : userinfoMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err));
             }
         
         let member = message.mentions.members.first();

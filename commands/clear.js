@@ -43,8 +43,8 @@ module.exports = {
             message.channel.stopTyping(true);
             return message.reply (`You can only delete ${maxDeletesPerClearNum} messages at a time.`);
         }
-        await message.delete().catch(err => console.log(`Error - ${err.message}`)); message.channel.stopTyping(true);
-        await message.channel.bulkDelete(number).catch(err => console.log(`Error - ${err.message}`)); message.channel.stopTyping(true);
+        await message.delete().catch(err => console.log(`Error - ${err}`)); message.channel.stopTyping(true);
+        await message.channel.bulkDelete(number, true).catch(err => console.log(`Error - ${err}`)); message.channel.stopTyping(true);
         
         await message.channel.stopTyping(true);
     }

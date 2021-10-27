@@ -15,7 +15,7 @@ module.exports = {
     {
         if(flipDeleteMessagesOnCommand == "true") 
         { 
-            message.delete({timeout : flipMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err.message));
+            message.delete({timeout : flipMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err));
         }
 
             var chance = Math.floor(Math.random() * 2);

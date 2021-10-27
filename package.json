@@ -7,11 +7,12 @@
     "start": "node Bot.js"
   },
   "author": "Arttu Kaipainen",
-  "license": "ISC",
+  "license": "Unlicense",
   "dependencies": {
     "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
     "discord.js": "^12.5.3",
+    "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.2",

@@ -1,4 +1,46 @@
 {
+  "defaults": {
+    "prefix": "!",
+    "accessToClearCommand": [],
+    "maxDeletesPerClear": "100",
+    "flipDeleteMessagesOnCommand": "true",
+    "flipMessageDeleteDelay": "1",
+    "helpDuration": "120",
+    "helpDeleteMessagesOnCommand": "true",
+    "helpMessageDeleteDelay": "1",
+    "memeReddits": [
+      "meme",
+      "dankmemes",
+      "dankmeme",
+      "animemes",
+      "animefunny",
+      "wholesomememes"
+    ],
+    "memeDeleteMessagesOnCommand": "true",
+    "memeMessageDeleteDelay": "1",
+    "amountOfMemesToPost": "5",
+    "memesDeleteMessagesOnCommand": "true",
+    "memesMessageDeleteDelay": "1",
+    "redditDeleteMessagesOnCommand": "true",
+    "redditMessageDeleteDelay": "1",
+    "redditLimit": 5,
+    "accessToReloadCommand": [],
+    "reloadDeleteMessagesOnCommand": "true",
+    "reloadMessageDeleteDelay": "1",
+    "steamDeleteMessagesOnCommand": "true",
+    "steamMessageDeleteDelay": "1",
+    "udDeleteMessagesOnCommand": "true",
+    "udMessageDeleteDelay": "true",
+    "userinfoDeleteMessagesOnCommand": "true",
+    "userinfoMessageDeleteDelay": "1",
+    "after": {
+      "meme": "",
+      "memes": "",
+      "kek": "",
+      "dankmeme": "t3_qdf7q7",
+      "animefunny": "t3_qfzk76"
+    }
+  },
   "prefix": "!",
   "accessToClearCommand": [],
   "maxDeletesPerClear": "100",
@@ -17,12 +59,11 @@
   ],
   "memeDeleteMessagesOnCommand": "true",
   "memeMessageDeleteDelay": "1",
-  "amountOfMemesToPost": "5",
-  "maxMemesToPost": "25",
   "memesDeleteMessagesOnCommand": "true",
   "memesMessageDeleteDelay": "1",
   "redditDeleteMessagesOnCommand": "true",
   "redditMessageDeleteDelay": "1",
+  "redditLimit": "5",
   "accessToReloadCommand": [],
   "reloadDeleteMessagesOnCommand": "true",
   "reloadMessageDeleteDelay": "1",
@@ -33,6 +74,15 @@
   "userinfoDeleteMessagesOnCommand": "true",
   "userinfoMessageDeleteDelay": "1",
   "after": {
-    "meme": "t3_psqgaw"
-  }
+    "meme": "",
+    "memes": "",
+    "kek": "",
+    "dankmeme": "",
+    "animefunny": "",
+    "dankmemes": "",
+    "wholesomememes": ""
+  },
+  "accessToConfig": [
+    ""
+  ]
 }

@@ -1,9 +1,13 @@
 const { Client, Collection } = require("discord.js");
 const bot = new Client();
 const { readdir } = require("fs");
-let { prefix } = require('./config.json');
+let botConf = require('./config.json');
+const express = require("express");
+const app = express()
 
-const token = ""
+// Serve ./page folder on port 80 (http)
+app.use(express.static("page"))
+app.listen(80)
 
 var fileName;
 var commandsLoaded = 0;
@@ -38,7 +42,7 @@ readdir("./commands/", (err, files) => {
             pull.config.aliases.forEach(alias => {
                 bot.aliases.set(alias, pull.config.name.toLowerCase())
             })
-        } catch(err) { console.log(`\nCouldn't load command ${fileName} \n   >${err.message}\n`); commandsLoaded--; }
+        } catch(err) { console.log(`\nCouldn't load command ${fileName} \n   >${err}\n`); commandsLoaded--; }
         commandsLoaded++;
     })
     if((jsfile.length - commandsLoaded) == 1) { console.log(`\n\n${commandsLoaded} commands loaded \n1 command failed to be loaded\n\n`) }
@@ -52,17 +56,26 @@ bot.on("message", async message => {
     let args = message.content.toLowerCase().split(" ");
     let cmd = args[0];
 
-    if(!message.content.startsWith(prefix)) return;
+    if(!message.content.startsWith(botConf["prefix"])) return; // Ignore messages that don't start with the prefix
 
-    let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.toLowerCase().slice(prefix.length)))
+    let commandfile = bot.commands.get(cmd.toLowerCase().slice(botConf["prefix"].length)) || bot.commands.get(bot.aliases.get(cmd.toLowerCase().slice(botConf["prefix"].length)))
     if(commandfile) 
     {
+        if(commandfile["config"]["name"] == "reload") {
+            try {
+                delete require.cache[require.resolve("./config.json")]
+                botConf = require("./config.json")
+                message.channel.send(`\`CONFIG\` reloaded.`)
+            } catch(err) {
+                console.log(`Error - ${err}`);
+            }
+        }
         try
         {
             message.channel.startTyping();
             commandfile.run(bot, message, args);
-        } catch(err) { console.log(`Error - ${err.message}`) }
+        } catch(err) { console.log(`Error - ${err}`) }
     }
 });
 
-bot.login(process.env.DJS_TOKEN || token);
+bot.login(process.env.DJS_TOKEN);

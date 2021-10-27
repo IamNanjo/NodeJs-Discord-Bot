@@ -27,7 +27,7 @@ module.exports =
     run: async(bot, message, args) => {
         if(helpDeleteMessagesOnCommand == "true") 
         { 
-            message.delete({timeout : helpMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err.message));
+            message.delete({timeout : helpMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err));
         }
 
         if(args[1]) {
@@ -43,7 +43,7 @@ module.exports =
                     try {
                         reqName = require(`./${args[1]}.js`);
                         helpEmbed.addField(reqName.config.name, reqName.config.description);
-                    } catch(err) { return console.log(err.message) }
+                    } catch(err) { return console.log(err) }
                 } else { return message.reply(`Command ${args[1]} not found`) }
             }
         }
@@ -59,16 +59,16 @@ module.exports =
 
                 try { 
                     helpEmbed.addField(reqName.config.name, reqName.config.description); 
-                } catch(err) { return console.log(err.message); } 
+                } catch(err) { return console.log(err); } 
             })
         }
 
         if (!helpDurationNum <= 0) {
             try {
                 message.channel.send(helpEmbed)
-                .then(msg => { msg.delete({ timeout: helpDurationNum * 1000 }) }).catch(err => console.log("Error - ", err.message))
+                .then(msg => { msg.delete({ timeout: helpDurationNum * 1000 }) }).catch(err => console.log("Error - ", err))
             } catch {}
-        } else message.channel.send(helpEmbed).catch(err => console.log("Error - ", err.message))
+        } else message.channel.send(helpEmbed).catch(err => console.log("Error - ", err))
 
         await message.channel.stopTyping(true);
     }

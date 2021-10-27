@@ -20,7 +20,7 @@ module.exports =
             return message.reply("You don't have the required permissions to use this command")
 
         if(botConf.reloadDeleteMessagesOnCommand == "true") { 
-            message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
+            message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err));
         }
         
         botConf = require("../config.json")
@@ -39,13 +39,13 @@ module.exports =
 
                 try
                 {
-                    delete require.cache[require.resolve(`./${commandName}.js`)];
-                    bot.commands.delete(commandName);
-                    let pull = require(`./${commandName}.js`);
+                    delete require.cache[require.resolve(`./${commandName}.js`)]
+                    bot.commands.delete(commandName)
+                    let pull = require(`./${commandName}.js`)
                     bot.commands.set(commandName, pull)
-                    message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
+                    message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`)
                 } catch(err) {
-                    console.log(`Error - ${err.message}`);
+                    console.log(`Error - ${err}`);
                 }
             }
             else if(commandName == "memes") {
@@ -65,7 +65,7 @@ module.exports =
                     bot.commands.set(commandName, pull)
                     message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
                 } catch(err) {
-                    console.log(`Error - ${err.message}`);
+                    console.log(`Error - ${err}`);
                 }
             }
             else {
@@ -77,7 +77,7 @@ module.exports =
                     bot.commands.set(commandName, pull)
                     message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
                 } catch(err) {
-                    console.log(`Error - ${err.message}`);
+                    console.log(`Error - ${err}`);
                 }
             }
         }

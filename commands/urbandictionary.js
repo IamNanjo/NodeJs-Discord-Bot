@@ -18,7 +18,7 @@ module.exports = {
     {
         if(udDeleteMessagesOnCommand == "true") 
         { 
-            message.delete({timeout : udMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err.message));
+            message.delete({timeout : udMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err));
         }
 
         if(message.channel.nsfw == false && message.channel.type != "dm") 
@@ -55,7 +55,7 @@ module.exports = {
                 message.channel.send(embed)
             })
         } catch(err) {
-            console.log(`Error - ${err.message}`);
+            console.log(`Error - ${err}`);
         }
         
         message.channel.stopTyping(true);
