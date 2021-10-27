@@ -26,3 +26,7 @@ body * {
     align-items: center;
     text-align: center;
 }
+
+#githublink {
+    margin: auto;
+}
