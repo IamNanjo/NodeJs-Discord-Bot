@@ -29,5 +29,6 @@ body * {
 
 #githublink {
     display: block;
-    margin: auto;
+    margin-top: 50%;
+    font-size: 2.5em;
 }

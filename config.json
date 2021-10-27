@@ -23,7 +23,7 @@
     "memesMessageDeleteDelay": "1",
     "redditDeleteMessagesOnCommand": "true",
     "redditMessageDeleteDelay": "1",
-    "redditLimit": 5,
+    "redditLimit": "5",
     "accessToReloadCommand": [],
     "reloadDeleteMessagesOnCommand": "true",
     "reloadMessageDeleteDelay": "1",
@@ -34,12 +34,8 @@
     "userinfoDeleteMessagesOnCommand": "true",
     "userinfoMessageDeleteDelay": "1",
     "after": {
-      "meme": "",
-      "memes": "",
-      "kek": "",
-      "dankmeme": "t3_qdf7q7",
-      "animefunny": "t3_qfzk76"
-    }
+    },
+    "accessToConfig": []
   },
   "prefix": "!",
   "accessToClearCommand": [],

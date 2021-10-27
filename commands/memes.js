@@ -32,12 +32,12 @@ module.exports = {
 
             for(const [link, title] of Object.entries(urlsCut)) {
                 let shortenedTitle = title
-                if(shortenedTitle.split(" ").length > 5) {
+                if(shortenedTitle.split(" ").length > 10) { // If more than 5 words
                     console.log("More than 10 words")
-                    shortenedTitle = shortenedTitle.split(" ").splice(0, 5) // Limit to 10 words
-                    shortenedTitle.push("...") 
+                    shortenedTitle = shortenedTitle.split(" ").splice(0, 10).join(" ") // Limit to 5 words
                     shortenedTitle = shortenedTitle.join(" ")
-                } else if(shortenedTitle.split("").length > 100) { 
+                    shortenedTitle.split("").push("...").join("")
+                } else if(shortenedTitle.split("").length > 50) { // If more than 50 characters
                     console.log("More than 100 characters")
                     shortenedTitle = shortenedTitle.split("").splice(0, 50)// Limit to 50 characters
                     shortenedTitle.push("...")
@@ -54,6 +54,6 @@ module.exports = {
             }
         })
 
-        await message.channel.stopTyping(true);
+        await message.channel.stopTyping(true)
     }
 }
