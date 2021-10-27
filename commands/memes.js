@@ -8,9 +8,9 @@ module.exports = {
     config: {
         name: "memes",
         aliases: ["meme"],
-        description: `Posts memes from reddit. Amount of memes can be limited with the 2nd argument
+        description: `Posts memes from reddit. Amount of memes can be limited with the first argument
         Subreddits: ***${memeReddits.join(", ")}***
-        Usage: ***${prefix}memes amount***
+        Usage: ***${prefix}memes (amount)***
         Aliases: ***Meme***
         Example: ***${prefix}memes 5***`
     },
@@ -23,20 +23,16 @@ module.exports = {
         }
         let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)].toLowerCase();
         
-        await fetchFromReddit(subreddit).then(urls => {
-            let urlsCut = urls
+        await fetchFromReddit(subreddit, args[1] || undefined).then(urls => {
 
-            if(args[2] && !isNaN(args[2])) {
-                urlsCut.splice(0, args[2])
-            }
-
-            for(const [link, title] of Object.entries(urlsCut)) {
+            for(const [link, title] of Object.entries(urls)) {
                 let shortenedTitle = title
                 if(shortenedTitle.split(" ").length > 10) { // If more than 5 words
                     console.log("More than 10 words")
-                    shortenedTitle = shortenedTitle.split(" ").splice(0, 10).join(" ") // Limit to 5 words
-                    shortenedTitle = shortenedTitle.join(" ")
-                    shortenedTitle.split("").push("...").join("")
+                    shortenedTitle = shortenedTitle.split(" ").splice(0, 10).join(" ") // Limit to 10 words
+                    shortenedTitle = shortenedTitle.split("")
+                    shortenedTitle.push("...")
+                    shortenedTitle = shortenedTitle.join("")
                 } else if(shortenedTitle.split("").length > 50) { // If more than 50 characters
                     console.log("More than 100 characters")
                     shortenedTitle = shortenedTitle.split("").splice(0, 50)// Limit to 50 characters

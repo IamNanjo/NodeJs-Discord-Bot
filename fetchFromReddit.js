@@ -8,14 +8,15 @@ const spliceObject = (obj={}, start=0, amount=1) => {
     if(Object.keys(obj).length <= amount) return obj // Don't splice if the object already has less keys than specified in the amount variable
 
     let result = Object.keys(obj).slice(start, amount).reduce((result, key) => {
-        result[key] = obj
+        result[key] = obj[key]
+        return result
     }, {})
 
     return result
 }
 
 module.exports = {
-    fetchFromReddit: async(subreddit) => 
+    fetchFromReddit: async(subreddit="memes", amount=redditLimit) => 
     {
         const supportedFileFormats = [
             "png",
@@ -46,9 +47,7 @@ module.exports = {
         catch(err) {
             console.error("Error fetchFromReddit() - ", err)
         }
-
-        urlList = spliceObject(urlList, 0, redditLimit) // 
     
-        return urlList
+        return spliceObject(urlList, 0, amount)
     }
 }

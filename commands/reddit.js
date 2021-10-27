@@ -10,7 +10,7 @@ module.exports =
         name: "reddit",
         aliases: ["r"],
         description: `Posts images from chosen subreddit
-        Usage: ***${prefix}reddit [subreddit]***
+        Usage: ***${prefix}reddit [subreddit] (amount)***
         Aliases: ***r***
         Example: ***${prefix}r softwaregore***`
     },
@@ -27,13 +27,20 @@ module.exports =
         if(!subreddit) return message.reply("You need to define a subreddit")    
 
         else {
-            await fetchFromReddit(subreddit).then(urls => {
+            await fetchFromReddit(subreddit, args[2] || undefined).then(urls => {
                 for(const [link, title] of Object.entries(urls)) {
-                    let shortenedTitle = title.split(" ").splice(0, 10).join(" ")
-                    if(shortenedTitle.split("").length > 100) {
-                        shortenedTitle = title.slice(0, 100)
-                        shortenedTitle.split(" ")
+                    let shortenedTitle = title
+                    if(shortenedTitle.split(" ").length > 10) { // If more than 10 words
+                        shortenedTitle = shortenedTitle.split(" ").splice(0, 10).join(" ") // Limit to 10 words
+                        shortenedTitle = shortenedTitle.split("")
+                        shortenedTitle.push("...") // Add ... to the end of the title if it has been shortened
+                        shortenedTitle = shortenedTitle.join("")
+                    } else if(shortenedTitle.split("").length > 50) { // If more than 50 characters
+                        shortenedTitle = shortenedTitle.split("").splice(0, 50)// Limit to 50 characters
+                        shortenedTitle.push("...") // Add ... to the end of the title if it has been shortened
+                        shortenedTitle = shortenedTitle.join("")
                     }
+
                     if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
                         redditEmbed = new MessageEmbed()
                             .setColor([0, 255, 0])

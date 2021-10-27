@@ -33,8 +33,7 @@
     "udMessageDeleteDelay": "true",
     "userinfoDeleteMessagesOnCommand": "true",
     "userinfoMessageDeleteDelay": "1",
-    "after": {
-    },
+    "after": {},
     "accessToConfig": []
   },
   "prefix": "!",
@@ -70,13 +69,13 @@
   "userinfoDeleteMessagesOnCommand": "true",
   "userinfoMessageDeleteDelay": "1",
   "after": {
-    "meme": "",
+    "meme": "t3_qgkopq",
     "memes": "",
     "kek": "",
-    "dankmeme": "",
-    "animefunny": "",
-    "dankmemes": "",
-    "wholesomememes": ""
+    "dankmeme": "t3_qebq1y",
+    "animefunny": "t3_qg6zjs",
+    "dankmemes": "t3_qgt4hu",
+    "wholesomememes": "t3_qgmlo8"
   },
   "accessToConfig": [
     ""
