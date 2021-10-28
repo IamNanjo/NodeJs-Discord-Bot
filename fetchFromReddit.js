@@ -33,13 +33,18 @@ module.exports = {
                     writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
                     let children = body["data"]["children"]
 
+                    writeFileSync("./json.json", JSON.stringify(children, null, 2), {encoding: "utf-8"})
+
                     children.forEach(e => {
                         let data = e["data"]
                         let postHint = data["post_hint"]
                         let url = data["url"]
                         
                         if(postHint === "image" && supportedFileFormats.includes(url.split(".").pop())) {
-                            urlList[url] = data["title"]
+                            urlList[url] = {
+                                "title": data["title"],
+                                "link": data["permalink"]
+                            }
                         }
                     })
                 })
