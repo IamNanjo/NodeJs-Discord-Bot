@@ -27,7 +27,7 @@ module.exports = {
 
             for(const [imgLink, values] of Object.entries(urls)) {
                 let title = values["title"]
-                let postLink = values["link"]
+                let postLink = ["https://reddit.com", values["link"]].join("")
                 if(title.split("").length > 253) { // If more than 253 characters
                     title = title.split("").splice(0, 253)// Limit to 253 characters
                     title.push("...")
