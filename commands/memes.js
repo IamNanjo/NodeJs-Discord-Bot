@@ -27,8 +27,8 @@ module.exports = {
 
             for(const [link, title] of Object.entries(urls)) {
                 let shortenedTitle = title
-                if(shortenedTitle.split("").length > 256) { // If more than 256 characters
-                    shortenedTitle = shortenedTitle.split("").splice(0, 256)// Limit to 256 characters
+                if(shortenedTitle.split("").length > 253) { // If more than 253 characters
+                    shortenedTitle = shortenedTitle.split("").splice(0, 253)// Limit to 253 characters
                     shortenedTitle.push("...")
                     shortenedTitle = shortenedTitle.join("")
                 }

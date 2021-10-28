@@ -49,7 +49,6 @@ module.exports =
                 }
             }
             else if(commandName == "memes") {
-                console.log("Should work")
                 for(const key in botConf["after"]) {
                     if(botConf["memeReddits"].includes(key)) {
                         botConf["after"][key] = ""
