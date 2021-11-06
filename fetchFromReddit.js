@@ -39,7 +39,10 @@ module.exports = {
                         let url = data["url"]
                         
                         if(postHint === "image" && supportedFileFormats.includes(url.split(".").pop())) {
-                            urlList[url] = data["title"]
+                            urlList[url] = {
+                                "title": data["title"],
+                                "link": data["permalink"]
+                            }
                         }
                     })
                 })

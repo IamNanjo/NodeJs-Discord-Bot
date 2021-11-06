@@ -25,19 +25,21 @@ module.exports = {
         
         await fetchFromReddit(subreddit, args[1] || undefined).then(urls => {
 
-            for(const [link, title] of Object.entries(urls)) {
-                let shortenedTitle = title
-                if(shortenedTitle.split("").length > 253) { // If more than 253 characters
-                    shortenedTitle = shortenedTitle.split("").splice(0, 253)// Limit to 253 characters
-                    shortenedTitle.push("...")
-                    shortenedTitle = shortenedTitle.join("")
+            for(const [imgLink, values] of Object.entries(urls)) {
+                let title = values["title"]
+                let postLink = ["https://reddit.com", values["link"]].join("")
+                if(title.split("").length > 253) { // If more than 253 characters
+                    title = title.split("").splice(0, 253)// Limit to 253 characters
+                    title.push("...")
+                    title = title.join("")
                 }
 
-                if(link.split(".").pop() == "jpg" || link.split(".").pop() == "jpeg" || link.split(".").pop() == "png") {
+                if(imgLink.split(".").pop() == "jpg" || imgLink.split(".").pop() == "jpeg" || imgLink.split(".").pop() == "png") {
                     let redditEmbed = new MessageEmbed()
                         .setColor([0, 255, 0])
-                        .setTitle(shortenedTitle)
-                        .setImage(link)
+                        .setTitle(title)
+                        .setDescription(postLink)
+                        .setImage(imgLink)
                     message.channel.send(redditEmbed)
                 }                    
             }

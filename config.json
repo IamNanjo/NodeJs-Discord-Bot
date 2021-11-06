@@ -68,15 +68,7 @@
   "udMessageDeleteDelay": "true",
   "userinfoDeleteMessagesOnCommand": "true",
   "userinfoMessageDeleteDelay": "1",
-  "after": {
-    "meme": "t3_qgkopq",
-    "memes": "",
-    "kek": "",
-    "dankmeme": "t3_qebq1y",
-    "animefunny": "t3_qg6zjs",
-    "dankmemes": "t3_qgt4hu",
-    "wholesomememes": "t3_qgmlo8"
-  },
+  "after": {},
   "accessToConfig": [
     ""
   ]
