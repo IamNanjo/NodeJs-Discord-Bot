@@ -1,4 +1,4 @@
-const botConf = require("../config.json")
+const botConf = require("../botConfig/defaults.json")
 
 module.exports = {
     config: {

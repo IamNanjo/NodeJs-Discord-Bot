@@ -1,4 +1,4 @@
-const { prefix, flipDeleteMessagesOnCommand, flipMessageDeleteDelay } = require("../config.json")["defaults"]
+const { prefix, flipDeleteMessagesOnCommand, flipMessageDeleteDelay } = require("../botConfig/defaults.json")
 
 flipMessageDeleteDelayNum = parseInt(flipMessageDeleteDelay, 10)
 

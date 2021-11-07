@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const moment = require("moment");
-const { prefix, userinfoDeleteMessagesOnCommand, userinfoMessageDeleteDelay } = require("../config.json")["defaults"];
+const { prefix, userinfoDeleteMessagesOnCommand, userinfoMessageDeleteDelay } = require("../botConfig/defaults.json");
 
 
 module.exports = 

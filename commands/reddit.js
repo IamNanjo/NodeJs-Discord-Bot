@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { fetchFromReddit } = require("../fetchFromReddit.js")
-const { prefix, redditDeleteMessagesOnCommand, redditMessageDeleteDelay } = require("../config.json")["defaults"];
+const { prefix, redditDeleteMessagesOnCommand, redditMessageDeleteDelay } = require("../botConfig/defaults.json");
 
 var redditMessageDeleteDelayNum = parseInt(redditMessageDeleteDelay, 10)
 

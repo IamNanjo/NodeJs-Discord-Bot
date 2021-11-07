@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { prefix, helpDuration, helpDeleteMessagesOnCommand, helpMessageDeleteDelay } = require("../config.json")["defaults"];
+const { prefix, helpDuration, helpDeleteMessagesOnCommand, helpMessageDeleteDelay } = require("../botConfig/defaults.json");
 const { readdirSync } = require("fs");
 
 let helpDurationNum = parseInt(helpDuration, 10)
