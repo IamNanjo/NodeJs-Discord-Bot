@@ -19,7 +19,7 @@ module.exports =
     {
         if(redditDeleteMessagesOnCommand == "true") 
         { 
-            message.delete({timeout : redditMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err));
+            message.delete({timeout : redditMessageDeleteDelayNum * 1000}).catch(err => console.error("Error - ", err));
         }
 
         let subreddit = args[1].toLowerCase()

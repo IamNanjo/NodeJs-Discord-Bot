@@ -2,7 +2,7 @@
     "script": "Bot.js",
     "watch": true,
     "ignore_watch": [
-        "config.json", 
+        "botConfig", 
         ".gitignore",
         "node_modules",
         "README.md"

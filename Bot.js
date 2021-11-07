@@ -14,7 +14,7 @@ bot.on("ready", () => {
     console.log(bot.user.username + " is ready");
     bot.user.setActivity("!help", { type: "WATCHING" })
         .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
-        .catch(e => console.log("Error - ", e.message))
+        .catch(e => console.error("Error - ", e.message))
 });
 
 // Read commands folder contents to know how many commands there are and load them
@@ -36,7 +36,7 @@ readdir("./commands/", (err, files) => {
             pull.config.aliases.forEach(alias => {
                 bot.aliases.set(alias, pull.config.name.toLowerCase())
             })
-        } catch(err) { console.log(`\nCouldn't load command ${fileName} \n   >${err}\n`); commandsLoaded--; }
+        } catch(err) { console.error(`\nCouldn't load command ${fileName} \n   >${err}\n`); commandsLoaded--; }
         commandsLoaded++;
     })
     if((jsfile.length - commandsLoaded) == 1) { console.log(`\n\n${commandsLoaded} commands loaded \n1 command failed to be loaded\n\n`) }
@@ -61,14 +61,14 @@ bot.on("message", async message => {
                 botConf = require("./config.json")
                 message.channel.send(`\`CONFIG\` reloaded.`)
             } catch(err) {
-                console.log(`Error - ${err}`);
+                console.error(`Error - ${err}`);
             }
         }
         try
         {
             message.channel.startTyping();
             commandfile.run(bot, message, args);
-        } catch(err) { console.log(`Error - ${err}`) }
+        } catch(err) { console.error(`Error - ${err}`) }
     }
 });
 

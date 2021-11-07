@@ -26,11 +26,11 @@ module.exports = {
         let urlList = {}
     
         try {
-            await fetch(`https://reddit.com/r/${subreddit}.json?after=${botConf.after}`)
+            await fetch(`https://reddit.com/r/${subreddit}.json?after=${botConf["after"][subreddit]}`)
                 .then(response => response.json())
                 .then(body => {
                     botConf["after"][subreddit] = body["data"]["after"]
-                    writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+                    writeFileSync("./botConfig/defaults.json", JSON.stringify(botConf, null, 2))
                     let children = body["data"]["children"]
 
                     children.forEach(e => {
@@ -45,7 +45,7 @@ module.exports = {
                             }
                         }
                     })
-                })
+                }).catch(err => console.error(err))
         }
         catch(err) {
             console.error("Error fetchFromReddit() - ", err)

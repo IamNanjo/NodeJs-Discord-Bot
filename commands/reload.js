@@ -20,7 +20,7 @@ module.exports =
             return message.reply("You don't have the required permissions to use this command")
 
         if(botConf.reloadDeleteMessagesOnCommand == "true") { 
-            message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.log("Error - ", err));
+            message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.error("Error - ", err));
         }
         
         botConf = require("../config.json")
@@ -45,7 +45,7 @@ module.exports =
                     bot.commands.set(commandName, pull)
                     message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`)
                 } catch(err) {
-                    console.log(`Error - ${err}`);
+                    console.error(`Error - ${err}`);
                 }
             }
             else if(commandName == "memes") {
@@ -64,7 +64,7 @@ module.exports =
                     bot.commands.set(commandName, pull)
                     message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
                 } catch(err) {
-                    console.log(`Error - ${err}`);
+                    console.error(`Error - ${err}`);
                 }
             }
             else {
@@ -76,7 +76,7 @@ module.exports =
                     bot.commands.set(commandName, pull)
                     message.channel.send(`\`${args[1].toUpperCase()}\` reloaded.`);
                 } catch(err) {
-                    console.log(`Error - ${err}`);
+                    console.error(`Error - ${err}`);
                 }
             }
         }
@@ -99,9 +99,9 @@ module.exports =
                         bot.commands.delete(commandName);
                         let pull = require(`./${f}`)
                         bot.commands.set(commandName, pull)
-                    } catch(e) {
+                    } catch(err) {
                         message.channel.send(`Could not reload \`${commandName.toUpperCase()}\``);
-                        console.log(`Error - ${e.message}`);
+                        console.error(`Error - ${err.message}`);
                         commandsReloaded--;
                     }
         

@@ -19,7 +19,7 @@ module.exports = {
     {
         if(memesDeleteMessagesOnCommand == "true") 
         { 
-            message.delete({timeout : memesMessageDeleteDelayNum * 1000}).catch(err => console.log("Error - ", err));
+            message.delete({timeout : memesMessageDeleteDelayNum * 1000}).catch(err => console.error("Error - ", err));
         }
         let subreddit = memeReddits[Math.floor(Math.random() * memeReddits.length)].toLowerCase();
         
