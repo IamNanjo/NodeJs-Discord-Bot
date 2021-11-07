@@ -1,0 +1,14 @@
+{
+    "script": "Bot.js",
+    "watch": true,
+    "ignore_watch": [
+        "config.json", 
+        ".gitignore",
+        "node_modules",
+        "README.md"
+    ],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "name": "Bot"
+}
