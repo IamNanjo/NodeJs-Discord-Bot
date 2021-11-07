@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args))
 const { writeFileSync } = require("fs")
-let botConf = require("./config.json");
+let botConf = require("./config.json")["defaults"];
 
 let redditLimit = parseInt(botConf["redditLimit"], 10)
 

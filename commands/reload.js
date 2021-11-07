@@ -1,5 +1,5 @@
 const { readdir, writeFileSync } = require("fs");
-let botConf = require("../config.json")
+let botConf = require("../config.json")["defaults"];
 
 var commandsReloaded = 0;
 

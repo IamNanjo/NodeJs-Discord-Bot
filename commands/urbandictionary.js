@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const urban = require("urban");
-const { prefix, udDeleteMessagesOnCommand, udMessageDeleteDelay } = require("../config.json");
+const { prefix, udDeleteMessagesOnCommand, udMessageDeleteDelay } = require("../config.json")["defaults"];
 
 
 module.exports = {

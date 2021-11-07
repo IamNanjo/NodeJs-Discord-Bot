@@ -1,7 +1,7 @@
 const { Client, Collection } = require("discord.js");
 const bot = new Client();
 const { readdir } = require("fs");
-let botConf = require('./config.json');
+let botConf = require('./config.json')["defaults"];
 
 var fileName;
 var commandsLoaded = 0;

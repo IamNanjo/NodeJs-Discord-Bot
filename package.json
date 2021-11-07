@@ -4,9 +4,9 @@
   "description": "A simple Discord bot",
   "main": "Bot.js",
   "scripts": {
-    "start": "pm2 start Bot.js --watch",
-    "stop": "pm2 stop Bot.js && pm2 delete Bot.js",
-    "restart": "pm2 restart Bot.js"
+    "start": "pm2 start pm2-process.json",
+    "stop": "pm2 stop Bot && pm2 delete Bot",
+    "restart": "pm2 restart Bot"
   },
   "author": "IamNanjo",
   "license": "Unlicense",

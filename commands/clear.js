@@ -1,4 +1,4 @@
-const { prefix, maxDeletesPerClear, accessToClearCommand } = require("../config.json")
+const { prefix, maxDeletesPerClear, accessToClearCommand } = require("../config.json")["defaults"]
 
 var maxDeletesPerClearNum = parseInt(maxDeletesPerClear, 10)
 
