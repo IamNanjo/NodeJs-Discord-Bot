@@ -2,12 +2,6 @@ const { Client, Collection } = require("discord.js");
 const bot = new Client();
 const { readdir } = require("fs");
 let botConf = require('./config.json');
-const express = require("express");
-const app = express()
-
-// Serve ./page folder on port 80 (http)
-app.use(express.static("page"))
-app.listen(process.env.PORT || 8080)
 
 var fileName;
 var commandsLoaded = 0;

@@ -4,19 +4,18 @@
   "description": "A simple Discord bot",
   "main": "Bot.js",
   "scripts": {
-    "start": "node Bot.js"
+    "start": "pm2 start Bot.js --watch",
+    "stop": "pm2 stop Bot.js && pm2 delete Bot.js",
+    "restart": "pm2 restart Bot.js"
   },
-  "author": "Arttu Kaipainen",
+  "author": "IamNanjo",
   "license": "Unlicense",
   "dependencies": {
-    "common-tags": "^1.8.0",
-    "dateformat": "^3.0.3",
     "discord.js": "^12.5.3",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.2",
-    "random-puppy": "^1.1.0",
     "urban": "^0.3.4"
   }
 }

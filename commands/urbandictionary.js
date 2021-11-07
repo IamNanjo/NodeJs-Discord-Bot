@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 const urban = require("urban");
-const { stripIndents } = require("common-tags");
 const { prefix, udDeleteMessagesOnCommand, udMessageDeleteDelay } = require("../config.json");
 
 
@@ -45,7 +44,7 @@ module.exports = {
                     .setColor([0, 255, 0])
                     .setAuthor(`Urban dictionary | ${word}`, image)
                     .setThumbnail(image)
-                    .setDescription(stripIndents`**Definition:** ${definition || "No definition"}
+                    .setDescription(`**Definition:** ${definition || "No definition"}
                     **Example:** ${example || "No example"}
                     **Upvote:** ${thumbs_up || 0} 👍
                     **Downvote:** ${thumbs_down || 0} 👎
