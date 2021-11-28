@@ -1,5 +1,5 @@
-const { Client, Collection } = require("discord.js");
-const bot = new Client();
+const { Client, Intents, Collection } = require("discord.js");
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_TYPING, Intents.FLAGS.DIRECT_MESSAGE_TYPING] });
 const { readdir } = require("fs");
 let botConf = require("./botConfig/defaults.json");
 
@@ -9,12 +9,9 @@ var commandsLoaded = 0;
 bot.commands = new Collection();
 bot.aliases = new Collection();
 
-
 bot.on("ready", () => {
     console.log(bot.user.username + " is ready");
-    bot.user.setActivity("!help", { type: "WATCHING" })
-        .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
-        .catch(e => console.error("Error - ", e.message))
+    bot.user.setActivity("!help", { type: "WATCHING" });
 });
 
 // Read commands folder contents to know how many commands there are and load them
@@ -24,27 +21,27 @@ readdir("./commands/", (err, files) => {
     let jsfile = files.filter(f => f.split(".").pop() === "js")
     if(jsfile.length <= 0) { return console.log("Error - No commands found"); }
 
-    console.log(`\nFound ${jsfile.length} commands to load`)
+    console.log(`\nFound ${jsfile.length} commands to load`);
 
     jsfile.forEach((f, i) => {
         fileName = f.split(".").shift();
         try
         {
             let pull = require(`./commands/${f}`);
-            console.log(`Loading command ${fileName}...`)
+            console.log(`Loading command ${fileName}...`);
             bot.commands.set(pull.config.name.toLowerCase().split(" ").join(""), pull);
             pull.config.aliases.forEach(alias => {
-                bot.aliases.set(alias, pull.config.name.toLowerCase())
+                bot.aliases.set(alias, pull.config.name.toLowerCase());
             })
         } catch(err) { console.error(`\nCouldn't load command ${fileName} \n   >${err}\n`); commandsLoaded--; }
         commandsLoaded++;
     })
-    if((jsfile.length - commandsLoaded) == 1) { console.log(`\n\n${commandsLoaded} commands loaded \n1 command failed to be loaded\n\n`) }
-    else { console.log(`\n\n${commandsLoaded} commands loaded \n${jsfile.length - commandsLoaded} commands failed to be loaded\n\n`) }
+    if((jsfile.length - commandsLoaded) == 1) { console.log(`\n\n${commandsLoaded} commands loaded \n1 command failed to be loaded\n\n`); }
+    else { console.log(`\n\n${commandsLoaded} commands loaded \n${jsfile.length - commandsLoaded} commands failed to be loaded\n\n`); }
 })
 
-// Bot is ready
-bot.on("message", async message => {
+// Bot commands
+bot.on("messageCreate", async message => {
     if(message.author.type === "bot") return;
     
     let args = message.content.toLowerCase().split(" ");
@@ -66,7 +63,7 @@ bot.on("message", async message => {
         }
         try
         {
-            message.channel.startTyping();
+            message.channel.sendTyping();
             commandfile.run(bot, message, args);
         } catch(err) { console.error(`Error - ${err}`) }
     }

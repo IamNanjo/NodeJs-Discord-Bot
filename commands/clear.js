@@ -15,37 +15,30 @@ module.exports = {
     run: async(bot, message, args) =>
     {
         if(message.channel.type == "dm") 
-            return message.reply("You can't use this command in direct message chats."); message.channel.stopTyping(true);
+            return message.reply("You can't use this command in direct message chats.");
             
-        if(!message.member.hasPermission("MANAGE_MESSAGES") && !accessToClearCommand.includes(message.member.id) && accessToClearCommand.length > 0) {
-            message.channel.stopTyping(true);
+        if(!message.member.permissions.has("MANAGE_MESSAGES") && !accessToClearCommand.includes(message.member.id) && accessToClearCommand.length > 0) {
             return message.reply("You don't have the required permissions to use this command!");
         }
         if(!args[1]) {
-            message.channel.stopTyping(true);
             return message.reply("Please provide an amount of messages to delete."); 
         }
         const number = Number(args[1])
 
         if(!Number.isInteger(number)) {
-            message.channel.stopTyping(true);
             return message.reply("Number is not an integer");
         }
         if(isNaN(args[1])) {
-            message.channel.stopTyping(true);
             return message.reply ("Not a number...");
         }
         if(number < 1) {
-            message.channel.stopTyping(true);
             return message.reply ("You have to delete at least one message.");
         }
         if(number > maxDeletesPerClearNum) {
-            message.channel.stopTyping(true);
             return message.reply (`You can only delete ${maxDeletesPerClearNum} messages at a time.`);
         }
-        await message.delete().catch(err => console.error(`Error - ${err}`)); message.channel.stopTyping(true);
-        await message.channel.bulkDelete(number, true).catch(err => console.error(`Error - ${err}`)); message.channel.stopTyping(true);
+        await message.delete().catch(err => console.error(`Error - ${err}`));
+        await message.channel.bulkDelete(number, true).catch(err => console.error(`Error - ${err}`));
         
-        await message.channel.stopTyping(true);
     }
 }

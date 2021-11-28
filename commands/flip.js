@@ -28,7 +28,5 @@ module.exports = {
             {
                 message.reply("Your coin landed on Tails!");
             }
-
-        await message.channel.stopTyping(true);
     }
 }

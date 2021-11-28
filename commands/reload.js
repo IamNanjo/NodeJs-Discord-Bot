@@ -16,7 +16,7 @@ module.exports =
 
     run: (bot, message, args) =>
     {
-        if(!message.member.hasPermission("ADMINISTRATOR") && !botConf.accessToReloadCommand.includes(message.member.id))
+        if(!message.member.permissions.has("ADMINISTRATOR") && !botConf.accessToReloadCommand.includes(message.member.id))
             return message.reply("You don't have the required permissions to use this command")
 
         if(botConf.reloadDeleteMessagesOnCommand == "true") { 
@@ -111,6 +111,5 @@ module.exports =
                 message.channel.send(`${commandsReloaded} commands succesfully reloaded`);
             })
         }
-        message.channel.stopTyping(true);
     }
 }

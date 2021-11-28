@@ -37,8 +37,6 @@ module.exports =
             .addField("User joined this server on : ", `${moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY, HH:mm:ss")} UTC / GMT`)
             .setTimestamp()
 
-        message.channel.send(userInfoEmbed);
-
-        await message.channel.stopTyping(true);
+        message.channel.send({ embeds: [userInfoEmbed] });
     }
 }

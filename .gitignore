@@ -1,3 +1,5 @@
-node_modules/
-page/
+botConfig
 config.json
+node_modules/
+pm2-process.json
+reinstall

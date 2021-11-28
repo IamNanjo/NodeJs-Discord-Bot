@@ -65,12 +65,10 @@ module.exports =
 
         if (!helpDurationNum <= 0) {
             try {
-                message.channel.send(helpEmbed)
+                message.channel.send({ embeds: [helpEmbed] })
                     .then(msg => { msg.delete({ timeout: helpDurationNum * 1000 }) })
             } catch(err) { console.error("Error - ", err) }
-        } else message.channel.send(helpEmbed).catch(err => console.error("Error - ", err))
-
-        await message.channel.stopTyping(true);
+        } else message.channel.send({ embeds: [helpEmbed] }).catch(err => console.error("Error - ", err))
     }
 }
 
@@ -93,5 +91,4 @@ if(!helpDurationNum <= 0)
         Aliases: ***?***
         Example: ***${prefix}?***`
     }
-
 }

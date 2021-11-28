@@ -40,11 +40,9 @@ module.exports = {
                         .setTitle(title)
                         .setDescription(postLink)
                         .setImage(imgLink)
-                    message.channel.send(redditEmbed)
+                    message.channel.send({ embeds: [redditEmbed] })
                 }                    
             }
         })
-
-        await message.channel.stopTyping(true)
     }
 }

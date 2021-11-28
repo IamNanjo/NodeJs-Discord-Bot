@@ -12,7 +12,7 @@ module.exports = {
     
     run: async(bot, message, args) =>
     {
-        if(!message.member.hasPermission("ADMINISTRATOR") && !botConf["accessToConfig"].includes(message.member.id))
+        if(!message.member.permissions.has("ADMINISTRATOR") && !botConf["accessToConfig"].includes(message.member.id))
             return message.reply("You don't have the required permissions to use this command")
         
         if(!args[1] || !args[2]) { // If command is missing the first or second argument. 
@@ -32,7 +32,5 @@ module.exports = {
         else {
             return bot.commands.get("help").run(bot, message, ["!help", "config"]) // Use !help command to show user how to use this command
         }
-
-        await message.channel.stopTyping(true)
     }
 }

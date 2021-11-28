@@ -24,31 +24,35 @@ module.exports = {
             "jpeg",
         ]
         let urlList = {}
-    
-        try {
-            await fetch(`https://reddit.com/r/${subreddit}.json?after=${botConf["after"][subreddit]}`)
-                .then(response => response.json())
-                .then(body => {
-                    botConf["after"][subreddit] = body["data"]["after"]
-                    writeFileSync("./botConfig/defaults.json", JSON.stringify(botConf, null, 2))
-                    let children = body["data"]["children"]
 
-                    children.forEach(e => {
-                        let data = e["data"]
-                        let postHint = data["post_hint"]
-                        let url = data["url"]
-                        
-                        if(postHint === "image" && supportedFileFormats.includes(url.split(".").pop())) {
-                            urlList[url] = {
-                                "title": data["title"],
-                                "link": data["permalink"]
+        const doFetch = () => {
+            try {
+                await fetch(`https://reddit.com/r/${subreddit}.json?after=${botConf["after"][subreddit]}`)
+                    .then(response => response.json())
+                    .then(body => {
+                        botConf["after"][subreddit] = body["data"]["after"]
+                        writeFileSync("./botConfig/defaults.json", JSON.stringify(botConf, null, 2))
+                        let children = body["data"]["children"]
+    
+                        children.forEach(e => {
+                            let data = e["data"]
+                            let postHint = data["post_hint"]
+                            let url = data["url"]
+                            
+                            if(postHint === "image" && supportedFileFormats.includes(url.split(".").pop())) {
+                                urlList[url] = {
+                                    "title": data["title"],
+                                    "link": data["permalink"]
+                                }
                             }
-                        }
-                    })
-                }).catch(err => console.error(err))
-        }
-        catch(err) {
-            console.error("Error fetchFromReddit() - ", err)
+                        })
+                    }).catch(err => console.error(err))
+            }
+            catch(err) {
+                console.error("Error fetchFromReddit() - ", err)
+            }
+
+            return urlList
         }
     
         return spliceObject(urlList, 0, amount)

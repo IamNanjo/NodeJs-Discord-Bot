@@ -33,7 +33,14 @@
   "userinfoDeleteMessagesOnCommand": "true",
   "userinfoMessageDeleteDelay": "1",
   "after": {
-    "memes": "t3_qo1dy1"
+    "memes": "t3_r408qk",
+    "crappydesign": "t3_qo85av",
+    "all": "t3_qtrd8u",
+    "dogs": "t3_quirrs",
+    "dog": "t3_qtm2m1",
+    "cats": "t3_quiwx7",
+    "wholesomememes": "t3_r2xnhl",
+    "dankmemes": "t3_r33npk"
   },
   "accessToConfig": []
 }

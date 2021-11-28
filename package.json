@@ -6,16 +6,17 @@
   "scripts": {
     "start": "pm2 start pm2-process.json",
     "stop": "pm2 stop Bot && pm2 delete Bot",
-    "restart": "pm2 restart Bot"
+    "restart": "pm2 restart pm2-process.json"
   },
   "author": "IamNanjo",
   "license": "Unlicense",
   "dependencies": {
-    "discord.js": "^12.5.3",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.3.1",
     "express": "^4.17.1",
-    "fs": "^0.0.1-security",
     "moment": "^2.29.1",
-    "node-fetch": "^2.6.2",
+    "node-fetch": "^3.1.0",
     "urban": "^0.3.4"
   }
 }

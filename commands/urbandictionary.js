@@ -21,10 +21,10 @@ module.exports = {
         }
 
         if(message.channel.nsfw == false && message.channel.type != "dm") 
-            return message.reply("You can only use this command in nsfw channels and direct messages"); message.channel.stopTyping(true);
+            return message.reply("You can only use this command in nsfw channels and direct messages");
         
         if(args < 2 || !["search", "s", "random", "r"].includes(args[1].toLowerCase())) return message.reply(`Proper usage of this command
-                 ${prefix}ud [search / random] ([word / phrase])`); message.channel.stopTyping(true);
+                 ${prefix}ud [search / random] ([word / phrase])`);
         
         if(["random", "r"].includes(args[1].toLowerCase()) && args[2]) 
             return message.reply(`If you want to look for a specific word, use "search" instead of "random"`);
@@ -51,12 +51,10 @@ module.exports = {
                     **Link:** [link to ${word}](${permalink || "https://www.urbandictionary.com/"})`)
                     .setFooter(`Written by ${author || "Unknown"}`);
 
-                message.channel.send(embed)
+                message.channel.send({ embeds: [embed] })
             })
         } catch(err) {
             console.error(`Error - ${err}`);
         }
-        
-        message.channel.stopTyping(true);
     }
 }
