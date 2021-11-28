@@ -1,5 +1,5 @@
-const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args))
-const { writeFileSync } = require("fs")
+const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
+const { writeFileSync } = require("fs");
 let botConf = require("./botConfig/defaults.json");
 
 let redditLimit = parseInt(botConf["redditLimit"], 10)
@@ -25,7 +25,7 @@ module.exports = {
         ]
         let urlList = {}
 
-        const doFetch = () => {
+        const doFetch = async () => {
             try {
                 await fetch(`https://reddit.com/r/${subreddit}.json?after=${botConf["after"][subreddit]}`)
                     .then(response => response.json())
@@ -51,9 +51,13 @@ module.exports = {
             catch(err) {
                 console.error("Error fetchFromReddit() - ", err)
             }
-
-            return urlList
         }
+        doFetch()
+
+        while(Object.keys(urlList).length < amount) { // While there are not enough elements in the urlList
+            await doFetch() // Get more urls
+        }
+        console.error("Done", urlList)
     
         return spliceObject(urlList, 0, amount)
     }

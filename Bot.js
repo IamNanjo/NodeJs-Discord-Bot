@@ -42,7 +42,7 @@ readdir("./commands/", (err, files) => {
 
 // Bot commands
 bot.on("messageCreate", async message => {
-    if(message.author.type === "bot") return;
+    if(message.author.type === "bot") return; // Ignore messages sent by bots
     
     let args = message.content.toLowerCase().split(" ");
     let cmd = args[0];
@@ -50,8 +50,9 @@ bot.on("messageCreate", async message => {
     if(!message.content.startsWith(botConf["prefix"])) return; // Ignore messages that don't start with the prefix
 
     let commandfile = bot.commands.get(cmd.toLowerCase().slice(botConf["prefix"].length)) || bot.commands.get(bot.aliases.get(cmd.toLowerCase().slice(botConf["prefix"].length)))
-    if(commandfile) 
+    if(commandfile)
     {
+        console.log(args.join(" "))
         if(commandfile["config"]["name"] == "reload") {
             try {
                 delete require.cache[require.resolve("./config.json")]

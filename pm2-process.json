@@ -2,10 +2,12 @@
     "script": "Bot.js",
     "watch": true,
     "ignore_watch": [
-        "botConfig", 
+        ".git",
         ".gitignore",
+        "botConfig", 
         "node_modules",
-        "README.md"
+        "README.md",
+        "reinstall"
     ],
     "watch_options": {
         "followSymlinks": false

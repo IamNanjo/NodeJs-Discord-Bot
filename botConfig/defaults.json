@@ -33,14 +33,17 @@
   "userinfoDeleteMessagesOnCommand": "true",
   "userinfoMessageDeleteDelay": "1",
   "after": {
-    "memes": "t3_r408qk",
+    "memes": "t3_r4o34e",
     "crappydesign": "t3_qo85av",
     "all": "t3_qtrd8u",
     "dogs": "t3_quirrs",
     "dog": "t3_qtm2m1",
     "cats": "t3_quiwx7",
-    "wholesomememes": "t3_r2xnhl",
-    "dankmemes": "t3_r33npk"
+    "wholesomememes": "t3_r1qxs9",
+    "dankmemes": "t3_r33npk",
+    "del": null,
+    "animefunny": "t3_r46qhd",
+    "dankmeme": "t3_r2vlkw"
   },
   "accessToConfig": []
 }
