@@ -1,7 +1,9 @@
 const { Client, Intents, Collection } = require("discord.js");
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_TYPING, Intents.FLAGS.DIRECT_MESSAGE_TYPING] });
 const { readdir } = require("fs");
-let botConf = require("./botConfig/defaults.json");
+const path = require("path");
+const botConfDir = path.join(__dirname, "botConfig", "defaults.json");
+let botConf = require(botConfDir);
 
 var fileName;
 var commandsLoaded = 0;
@@ -55,8 +57,8 @@ bot.on("messageCreate", async message => {
         console.log(args.join(" "))
         if(commandfile["config"]["name"] == "reload") {
             try {
-                delete require.cache[require.resolve("./config.json")]
-                botConf = require("./config.json")
+                delete require.cache[require.resolve(botConfDir)]
+                botConf = require(botConfDir)
                 message.channel.send(`\`CONFIG\` reloaded.`)
             } catch(err) {
                 console.error(`Error - ${err}`);

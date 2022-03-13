@@ -1,7 +1,10 @@
 const { readdir, writeFileSync } = require("fs");
-let botConf = require("../botConfig/defaults.json");
+const path = require("path");
+const botConfDir = path.join(__dirname, "..", "botConfig", "defaults.json");
+let botConf = require(botConfDir);
 
 var commandsReloaded = 0;
+
 
 module.exports = 
 {
@@ -23,7 +26,7 @@ module.exports =
             message.delete({timeout : botConf.reloadMessageDeleteDelay * 1000}).catch(err => console.error("Error - ", err));
         }
         
-        botConf = require("../config.json")
+        botConf = require(botConfDir)
 
         if(args[1])
         {
@@ -35,7 +38,7 @@ module.exports =
                         botConf["after"][key] = ""
                     }
                 }
-                writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+                writeFileSync(botConfDir, JSON.stringify(botConf, null, 2))
 
                 try
                 {
@@ -54,7 +57,7 @@ module.exports =
                         botConf["after"][key] = ""
                     }
                 }
-                writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+                writeFileSync(botConfDir, JSON.stringify(botConf, null, 2))
 
                 try
                 {
@@ -86,9 +89,9 @@ module.exports =
             for(const key in botConf["after"]) {
                 botConf["after"][key] = ""
             }
-            writeFileSync("./config.json", JSON.stringify(botConf, null, 2))
+            writeFileSync(botConfDir, JSON.stringify(botConf, null, 2))
 
-            readdir(`./commands/`, (err, files) => {
+            readdir(__dirname, (err, files) => {
                 if(err) console.log(err);
 
                 files.forEach(f => {

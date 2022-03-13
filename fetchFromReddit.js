@@ -1,6 +1,8 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 const { writeFileSync } = require("fs");
-let botConf = require("./botConfig/defaults.json");
+const path = require("path");
+const botConfDir = path.join(__dirname, "botConfig", "defaults.json");
+let botConf = require(botConfDir);
 
 let redditLimit = parseInt(botConf["redditLimit"], 10)
 
@@ -31,7 +33,7 @@ module.exports = {
                     .then(response => response.json())
                     .then(body => {
                         botConf["after"][subreddit] = body["data"]["after"]
-                        writeFileSync("./botConfig/defaults.json", JSON.stringify(botConf, null, 2))
+                        writeFileSync(botConfDir, JSON.stringify(botConf, null, 2))
                         let children = body["data"]["children"]
     
                         children.forEach(e => {
